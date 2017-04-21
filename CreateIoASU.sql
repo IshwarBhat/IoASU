@@ -52,8 +52,7 @@ CREATE TABLE Users (
   LName             VARCHAR(255) NOT NULL,
   FName             VARCHAR(255) NOT NULL,
   Bio               VARCHAR(255),
-  Email             VARCHAR(255) NOT NULL,
-  Phone             VARCHAR(10)
+  Email             VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Phones (
