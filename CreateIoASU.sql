@@ -48,7 +48,7 @@ CREATE TABLE Users (
   UserID            INT            PRIMARY KEY   IDENTITY,
   ASUID             VARCHAR(20),
   Password          VARCHAR(128) NOT NULL,
-  PasswordSalt      VARCHAR(128) NOT NULL,
+  PasswordSalt      VARCHAR(128),
   LName             VARCHAR(255) NOT NULL,
   FName             VARCHAR(255) NOT NULL,
   Bio               VARCHAR(255),
