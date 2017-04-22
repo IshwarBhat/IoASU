@@ -1,8 +1,10 @@
 /********************************************************
-* This script creates the database named my_guitar_shop 
+* This script creates the database named IoASU
 *********************************************************/
 USE master;
 GO
+
+-- alter database IoASU set single_user with rollback immediate;
 
 IF  DB_ID('IoASU') IS NOT NULL
 DROP DATABASE IoASU;
@@ -202,8 +204,8 @@ INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio, Ema
 (1, 'pbuffet', 'January01@', NULL, 'Buffet', 'Pheobe', 'Student of Information Technology', 'pbuffet@asu.edu'),
 (2, 'kclarkson', 'February8', NULL, 'Clarkson', 'Kelly', 'Civil Engineering Student', 'kclarkson@asu,edu'),
 (3, 'bpitt', 'March123@', NULL, 'Pitt', 'Brad', 'Biomedical Student', 'bpitt@asu.edu'),
-(4, 'jlawrence', 'April09%', NULL, 'Tribianni', 'Joseph', 'Biodesign Student', 'jlawrence@asu.edu'),
-(5, 'jtribianni', 'June123@', NULL, 'Buffet', 'Pheobe', 'Computer Science Student', 'jtribianni@asu.edu'),
+(4, 'jlawrence', 'April09%', NULL, 'Lawarence', 'Jennifer', 'Biodesign Student', 'jlawrence@asu.edu'),
+(5, 'jtribianni', 'June123@', NULL, 'Tribianni', 'Joseph', 'Computer Science Student', 'jtribianni@asu.edu'),
 (6, 'cbing', 'Flower##', NULL, 'Bing', 'Chandler', 'Graphic Information technology Student', 'cbing@asu.edu'),
 (7, 'rgeller', 'September9@', NULL, 'Geller', 'Ross', 'Law Student', 'rgeller@asu.edu'),
 (8, 'rgreen', 'August!120', NULL, 'Green', 'Rachel', 'Accounting Student', 'rgreen@asu.edu'),
@@ -359,23 +361,6 @@ INSERT INTO Categories (CategoryID, CategoryName, CountOfOrgs) VALUES
 
 
 SET IDENTITY_INSERT Categories OFF;
-
-
---SET IDENTITY_INSERT CampusOrganization ON;
-SELECT* FROM CampusOrganization
-INSERT INTO CampusOrganization (CampusID, OrgID) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(1, 5),
-(2, 6),
-(3, 7),
-(4, 8),
-(1, 9),
-(2, 10);
-
---SET IDENTITY_INSERT CampusOrganization OFF;
 
 
 SET IDENTITY_INSERT Documents ON;
