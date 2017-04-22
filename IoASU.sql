@@ -212,7 +212,6 @@ INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio, Ema
 (9, 'mgeller', 'December%2', NULL, 'Geller', 'Monica', 'Software Engineering Student', 'mgeller@asu.edu'),
 (10,'omunn', 'october763@', NULL, 'Olivia', 'Munn', 'Real Estate Student', 'omunn@asu.edu');
 
-
 SET IDENTITY_INSERT Users OFF;
 
 
