@@ -361,23 +361,6 @@ INSERT INTO Categories (CategoryID, CategoryName, CountOfOrgs) VALUES
 SET IDENTITY_INSERT Categories OFF;
 
 
---SET IDENTITY_INSERT CampusOrganization ON;
-SELECT* FROM CampusOrganization
-INSERT INTO CampusOrganization (CampusID, OrgID) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(1, 5),
-(2, 6),
-(3, 7),
-(4, 8),
-(1, 9),
-(2, 10);
-
---SET IDENTITY_INSERT CampusOrganization OFF;
-
-
 SET IDENTITY_INSERT Documents ON;
 
 INSERT INTO Documents (DocID, DocName, DocDesc, DocLink) VALUES
