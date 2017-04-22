@@ -46,7 +46,6 @@ CREATE TABLE Departments (
   Department        VARCHAR(255)
 );
 
-
 CREATE TABLE Users (
   UserID            INT            PRIMARY KEY   IDENTITY,
   ASUID             VARCHAR(20),
@@ -54,9 +53,8 @@ CREATE TABLE Users (
   PasswordSalt      VARCHAR(128),
   LName             VARCHAR(255) NOT NULL,
   FName             VARCHAR(255) NOT NULL,
-  Bio               VARCHAR(255),
-  Email             VARCHAR(255) NOT NULL
-  );
+  Bio               VARCHAR(255)
+    );
 
 CREATE TABLE Phones (
   Phone             VARCHAR(10)    PRIMARY KEY
@@ -200,6 +198,7 @@ SET IDENTITY_INSERT Departments OFF;
 SET IDENTITY_INSERT Users ON;
 
 
+<<<<<<< HEAD
 INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio, Email) VALUES
 (1, 'pbuffet', 'January01@', NULL, 'Buffet', 'Pheobe', 'Student of Information Technology', 'pbuffet@asu.edu'),
 (2, 'kclarkson', 'February8', NULL, 'Clarkson', 'Kelly', 'Civil Engineering Student', 'kclarkson@asu,edu'),
@@ -211,6 +210,19 @@ INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio, Ema
 (8, 'rgreen', 'August!120', NULL, 'Green', 'Rachel', 'Accounting Student', 'rgreen@asu.edu'),
 (9, 'mgeller', 'December%2', NULL, 'Geller', 'Monica', 'Software Engineering Student', 'mgeller@asu.edu'),
 (10,'omunn', 'october763@', NULL, 'Olivia', 'Munn', 'Real Estate Student', 'omunn@asu.edu');
+=======
+INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio) VALUES
+(1, 'pbuffet', 'January01@', NULL, 'Buffet', 'Pheobe', 'Student of Information Technology'),
+(2, 'kclarkson', 'February8', NULL, 'Clarkson', 'Kelly', 'Civil Engineering Student'),
+(3, 'bpitt', 'March123@', NULL, 'Pitt', 'Brad', 'Biomedical Student'),
+(4, 'jlawrence', 'April09%', NULL, 'Tribianni', 'Joseph', 'Biodesign Student'),
+(5, 'jtribianni', 'June123@', NULL, 'Buffet', 'Pheobe', 'Computer Science Student'),
+(6, 'cbing', 'Flower##', NULL, 'Bing', 'Chandler', 'Graphic Information technology Student'),
+(7, 'rgeller', 'September9@', NULL, 'Geller', 'Ross', 'Law Student'),
+(8, 'rgreen', 'August!120', NULL, 'Green', 'Rachel', 'Accounting Student'),
+(9, 'mgeller', 'December%2', NULL, 'Geller', 'Monica', 'Software Engineering Student'),
+(10,'omunn', 'october763@', NULL, 'Olivia', 'Munn', 'Real Estate Student');
+>>>>>>> draja/master
 
 SET IDENTITY_INSERT Users OFF;
 
@@ -404,4 +416,3 @@ ON *
 TO MGSUser@localhost
 IDENTIFIED BY 'pa55word';
 */
-
