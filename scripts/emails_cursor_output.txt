@@ -1,0 +1,28 @@
+-------- User Emails --------
+ 
+<omunn@asu.edu>
+Hi Olivia Munn,
+Subject: Ignite @ ASU
+You are invited to this event! Details: Public event for individuals to share the ideas, passions and stories
+Time: Jan  1 1900  1:00PM
+Venue: CPCOM
+Hope to see you there!
+Bye.
+ 
+<mkohl@asu.edu>
+Hi Melissa Kohl,
+Subject: Ignite @ ASU
+You are invited to this event! Details: Public event for individuals to share the ideas, passions and stories
+Time: Jan  1 1900  1:00PM
+Venue: CPCOM
+Hope to see you there!
+Bye.
+ 
+<sjohansson@asu.edu>
+Hi Scarlett Johansson,
+Subject: Ignite @ ASU
+You are invited to this event! Details: Public event for individuals to share the ideas, passions and stories
+Time: Jan  1 1900  1:00PM
+Venue: CPCOM
+Hope to see you there!
+Bye.
