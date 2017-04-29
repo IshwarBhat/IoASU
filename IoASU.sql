@@ -4,7 +4,7 @@
 USE master;
 GO
 
--- alter database IoASU set single_user with rollback immediate;
+--alter database IoASU set single_user with rollback immediate;
 
 IF  DB_ID('IoASU') IS NOT NULL
 DROP DATABASE IoASU;
@@ -20,8 +20,7 @@ CREATE TABLE Campuses (
   CampusID            INT            PRIMARY KEY   IDENTITY,
   CampusName          VARCHAR(255)   NOT NULL,
   Location            VARCHAR(255)   NOT NULL,
-  OrganizationCount   INT                          DEFAULT 0
-);
+ );
 
 CREATE TABLE Organizations (
   OrgID             INT            PRIMARY KEY   IDENTITY,
@@ -107,7 +106,6 @@ CREATE TABLE EventOrganization (
 CREATE TABLE Categories (
   CategoryID        INT            PRIMARY KEY   IDENTITY,
   CategoryName      VARCHAR(255)   NOT NULL,
-  CountOfOrgs       INT                          DEFAULT 0
 );
 
 CREATE TABLE CategoryOrganization (
@@ -133,11 +131,13 @@ CREATE TABLE DocumentOrganization (
 
 SET IDENTITY_INSERT Campuses ON;
 
-INSERT INTO Campuses (CampusID, CampusName, Location, OrganizationCount) VALUES
-(1, 'Tempe', 'Tempe', '80'), 
-(2, 'Downtown', 'Phoenix', '20'),
-(3, 'Polytechnic','Mesa', '30'),
-(4, 'West', 'Glendale', '15');
+INSERT INTO Campuses (CampusID, CampusName, Location) VALUES
+(1, 'Tempe', 'Tempe'), 
+(2, 'Downtown', 'Phoenix'),
+(3, 'Polytechnic','Mesa'),
+(4, 'West', 'Glendale'),
+(5, 'Lake Havasu City', 'Lake Havasu'),
+(6, 'Thunderbird', 'Thunderbird');
 
 SET IDENTITY_INSERT Campuses OFF;
 
@@ -154,7 +154,14 @@ INSERT INTO Organizations (OrgID, Name, Email, Phone, MeetingVenue, WeeklyMeetDa
 (7, 'Bhakti Yoga Club', 'bhaktiyoga@asu.edu', '4802651298', 'CPCOM', 'Monday', '17:00', 'bhaktiyoga.com', '2010-08-12'),
 (8, 'bioSyntagma', 'biosyntagma@asu.edu', '4805640099', 'Hassayampa Academic Village', 'Wednesday', '19:00', 'biosyntagma.org', '2012-11-23'),
 (9, 'Global Business Association', 'gba@asu.edu', '4807763452', 'W P Carey', 'Friday', '16:00', 'gba.org', '2013-09-27'),
-(10,'JOYS', 'joys@asu.edu', '4807867654', 'Discovery', 'Thursday', '16:00', 'joys.com', '2014-10-10');
+(10,'JOYS', 'joys@asu.edu', '4807867654', 'Discovery', 'Thursday', '16:00', 'joys.com', '2014-10-10'),
+(11,'Alpha Chi Omega Sorority', 'alchios@asu.edu', '4532549872', 'Peralta', 'Thursday', '17:00', 'alchios.com', '2015-03-10'),
+(12,'ASU Club Golf Team', 'golf@asu.edu', '2094567845', 'CPCOM', 'Monday', '17:50', 'asugolf.com', '2014-01-19'),
+(13,'Bakers at ASU', 'bakers@asu.edu', '6024549234', 'BAC', 'Friday', '16:00', 'asubakers.com', '2013-04-05'),
+(14,'Sustaninable Engergy Solutions', 'energy@asu.edu', '4328766123', 'SanTan Hall', 'Thursday', '16:00', 'joys.com', '2014-10-10'),
+(15,'TECH Devils', 'techdevils@asu.edu', '3349877823', 'Fulton Center', 'Wednesday', '16:50', 'techdevils.com', '2013-11-01');
+
+
  
 
 SET IDENTITY_INSERT Organizations OFF;
@@ -172,7 +179,14 @@ INSERT INTO CampusOrganization (CampusID, OrgID) VALUES
 (3, 7),
 (4, 8),
 (1, 9),
-(2, 10);
+(2, 10),
+(5,11),
+(4, 12),
+(6, 13),
+(5, 14),
+(6, 15);
+
+Select * FROM CampusOrganization;
 
 --SET IDENTITY_INSERT CampusOrganization OFF;
 
@@ -198,21 +212,8 @@ SET IDENTITY_INSERT Departments OFF;
 SET IDENTITY_INSERT Users ON;
 
 
-<<<<<<< HEAD
-INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio, Email) VALUES
-(1, 'pbuffet', 'January01@', NULL, 'Buffet', 'Pheobe', 'Student of Information Technology', 'pbuffet@asu.edu'),
-(2, 'kclarkson', 'February8', NULL, 'Clarkson', 'Kelly', 'Civil Engineering Student', 'kclarkson@asu,edu'),
-(3, 'bpitt', 'March123@', NULL, 'Pitt', 'Brad', 'Biomedical Student', 'bpitt@asu.edu'),
-(4, 'jlawrence', 'April09%', NULL, 'Lawarence', 'Jennifer', 'Biodesign Student', 'jlawrence@asu.edu'),
-(5, 'jtribianni', 'June123@', NULL, 'Tribianni', 'Joseph', 'Computer Science Student', 'jtribianni@asu.edu'),
-(6, 'cbing', 'Flower##', NULL, 'Bing', 'Chandler', 'Graphic Information technology Student', 'cbing@asu.edu'),
-(7, 'rgeller', 'September9@', NULL, 'Geller', 'Ross', 'Law Student', 'rgeller@asu.edu'),
-(8, 'rgreen', 'August!120', NULL, 'Green', 'Rachel', 'Accounting Student', 'rgreen@asu.edu'),
-(9, 'mgeller', 'December%2', NULL, 'Geller', 'Monica', 'Software Engineering Student', 'mgeller@asu.edu'),
-(10,'omunn', 'october763@', NULL, 'Olivia', 'Munn', 'Real Estate Student', 'omunn@asu.edu');
-=======
 INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio) VALUES
-(1, 'pbuffet', 'January01@', NULL, 'Buffet', 'Pheobe', 'Student of Information Technology'),
+(1, 'pbuffet', 'January01@', NULL, 'Buffet', 'Pheobe', 'Information Technology Student'),
 (2, 'kclarkson', 'February8', NULL, 'Clarkson', 'Kelly', 'Civil Engineering Student'),
 (3, 'bpitt', 'March123@', NULL, 'Pitt', 'Brad', 'Biomedical Student'),
 (4, 'jlawrence', 'April09%', NULL, 'Tribianni', 'Joseph', 'Biodesign Student'),
@@ -221,8 +222,29 @@ INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio) VAL
 (7, 'rgeller', 'September9@', NULL, 'Geller', 'Ross', 'Law Student'),
 (8, 'rgreen', 'August!120', NULL, 'Green', 'Rachel', 'Accounting Student'),
 (9, 'mgeller', 'December%2', NULL, 'Geller', 'Monica', 'Software Engineering Student'),
-(10,'omunn', 'october763@', NULL, 'Olivia', 'Munn', 'Real Estate Student');
->>>>>>> draja/master
+(10,'omunn', 'october003!', NULL, 'Munn', 'Olivia', 'Real Estate Student'),
+(11,'mkohl', 'purple365@', NULL, 'Kohl', 'Melissa', ' Dance Student'),
+(12,'arigby', 'tesla07!&', NULL, 'Rigby', 'Adam', 'Digital Culture Student'),
+(13,'ajolie', 'pitt760!&&', NULL, 'Jolie', 'Angelina', 'Industrial Design Student'),
+(14,'cphelps', 'summer2654', NULL, 'Phelps', 'Chase', 'Music Student'),
+(15,'kperry', 'paris085!', NULL, 'Perry', 'katy', 'Theatre Student'),
+(16,'jtimberlake', 'tennesse653', NULL, 'Timberlake', 'Justin', 'Visual Communication Student'),
+(17,'jparsons', 'winter34!&', NULL, 'Parsons', 'Jim', 'Construction Management Student'),
+(18,'tcruise', 'topgun&&', NULL, 'Cruise', 'Tom', 'Environmental Technology Management Student'),
+(19,'ldicaprio', 'titanic58!', NULL, 'DiCaprio', 'Leonardo', 'Software Engineering Student'),
+(20,'hjackman', 'wolverine34!&', NULL, 'Jackman', 'Hugh', 'Information Technology Student'), 
+(21,'sjohansson', 'lucy986@!', NULL, 'Johansson', 'Scarlett', 'Information Technology Student'),
+(22,'mstreep', 'mamamia978!', NULL, 'Streep', 'Meryl', 'Civil Engineering Student'),
+(23,'nportman', 'blackswan234!', NULL, 'Portman', 'Natalie', 'Biomedical Student'),
+(24,'mmccarthy', 'spy000!', NULL, 'McCarthy', 'Melissa', 'Biodesign Student'),
+(25,'mfox', 'jonahhex6567!&', NULL, 'Fox', 'Megan', 'Computer Science Student'),
+(26,'khudson', 'Bridewars111!', NULL, 'Hudson', 'kate', 'Graphic Information technology Student'),
+(27,'mdamon', 'departed986!', NULL, 'Damon', 'Matt', 'Law Student'),
+(28,'thanks', 'Sully*@@12!', NULL, 'Hanks', 'Tom', 'Accounting Student'),
+(29,'cbale', 'americanhustle5&&', NULL, 'Bale', 'Christian', 'Dance Student'),
+(30,'jdepp', 'pirates876!', NULL, 'Depp', 'Johnny', 'Theatre Student');
+
+
 
 SET IDENTITY_INSERT Users OFF;
 
@@ -239,7 +261,28 @@ INSERT INTO Phones (Phone) VALUES
 ('4805572397'),
 ('6022347654'),
 ('4809124531'),
-('5203228767');
+('5203228767'),
+('4800734576'),
+('6024768769'),
+('5202343222'),
+('6022343424'),
+('5202333234'),
+('4800999221'),
+('4809800094'),
+('6024200975'),
+('4804522334'),
+('5208676668'),
+('4803342344'),
+('4562345524'),
+('5264563454'),
+('7865443322'),
+('4524565652'),
+('2454623444'),
+('6556322097'),
+('3452409424'),
+('2234875009'),
+('2230975234');
+
 
 
 --SET IDENTITY_INSERT Phones OFF;
@@ -256,7 +299,27 @@ INSERT INTO UserPhones (UserID, Phone) VALUES
 (7, '4805572397'),
 (8, '6022347654'),
 (9, '4809124531'),
-(10, '5203228767');
+(10, '5203228767'),
+(11, '4800734576'),
+(12, '6024768769'),
+(13, '5202343222'),
+(14, '6022343424'),
+(15, '5202333234'),
+(16, '4800999221'),
+(17, '4809800094'),
+(18, '6024200975'),
+(19, '4804522334'),
+(20, '5208676668'), 
+(21, '4803342344'),
+(22, '4562345524'),
+(23, '5264563454'),
+(24, '7865443322'),
+(25, '4524565652'),
+(26, '2454623444'),
+(27, '6556322097'),
+(28, '3452409424'),
+(29, '2234875009'),
+(30, '2230975234');
 
 
 --SET IDENTITY_INSERT UserPhones OFF;
@@ -273,13 +336,35 @@ INSERT INTO Emails (Email) VALUES
 ('rgeller@asu.edu'),
 ('rgreen@asu.edu'),
 ('mgeller@asu.edu'),
-('omunn@asu.edu');
+('omunn@asu.edu'),
+('mkohl@asu.edu'),
+('arigby@asu.edu'),
+('ajolie@asu.edu'),
+('cphelps@asu.edu'),
+('kperry@asu.edu'),
+('jtimberlake@asu.edu'),
+('jparsons@asu.edu'),
+('tcruise@asu.edu'),
+('ldicaprio@asu.edu'),
+('hjackman@asu.edu'),
+('sjohansson@asu.edu'),
+('mstreep@asu.edu'),
+('nportman@asu.edu'),
+('mmccarthy@asu.edu'),
+('mfox@asu.edu'),
+('khudson@asu.edu'),
+('mdamon@asu.edu'),
+('thanks@asu.edu'),
+('cbale@asu.edu'),
+('jdepp@asu.edu');
+
 
 --SET IDENTITY_INSERT Emails OFF;
 
 --SET IDENTITY_INSERT UserEmails ON;
 
 INSERT INTO UserEmails(UserID, Email) VALUES
+
 (1, 'pbuffet@asu.edu'),
 (2, 'kclarkson@asu.edu'),
 (3,	'bpitt@asu.edu'),
@@ -289,7 +374,29 @@ INSERT INTO UserEmails(UserID, Email) VALUES
 (7, 'rgeller@asu.edu'),
 (8, 'rgreen@asu.edu'),
 (9, 'mgeller@asu.edu'),
-(10, 'omunn@asu.edu');
+(10, 'omunn@asu.edu'),
+(11, 'mkohl@asu.edu'),
+(12, 'arigby@asu.edu'),
+(13, 'ajolie@asu.edu'),
+(14, 'cphelps@asu.edu'),
+(15, 'kperry@asu.edu'),
+(16, 'jtimberlake@asu.edu'),
+(17, 'jparsons@asu.edu'),
+(18, 'tcruise@asu.edu'),
+(19, 'ldicaprio@asu.edu'),
+(20, 'hjackman@asu.edu'),
+(21, 'sjohansson@asu.edu'), 
+(22, 'mstreep@asu.edu'),
+(23, 'nportman@asu.edu'),
+(24, 'mmccarthy@asu.edu'),
+(25, 'mfox@asu.edu'),
+(26, 'khudson@asu.edu'),
+(27, 'mdamon@asu.edu'),
+(28, 'thanks@asu.edu'),
+(29, 'cbale@asu.edu'),
+(30, 'jdepp@asu.edu');
+
+
 
 --SET IDENTITY_INSERT UserEmails OFF;
 
@@ -304,7 +411,27 @@ INSERT INTO UserDepartment (UserID, DepID) VALUES
 (7, '700'),
 (8, '800'),
 (9, '900'),
-(10, '1000');
+(10, '1000'),
+(11, '100'),
+(12, '200'),
+(13, '300'),
+(14, '400'),
+(15, '500'),
+(16, '600'),
+(17, '700'),
+(18, '800'),
+(19, '900'),
+(20, '1000'),
+(21, '100'),
+(22, '200'),
+(23, '300'),
+(24, '400'),
+(25, '500'),
+(26, '600'),
+(27, '700'),
+(28, '800'),
+(29, '900'),
+(30, '1000');
 
 
 --SET IDENTITY_INSERT UserDepartment OFF;
@@ -320,7 +447,30 @@ INSERT INTO UserOrganization ( UserID, OrgID) VALUES
 (7, 4),
 (8, 3),
 (9, 2),
-(10, 1);
+(10, 1),
+(11, 11),
+(12, 12),
+(13, 13),
+(14, 14),
+(15, 15),
+(16, 1),
+(17, 2),
+(18, 3),
+(19, 4),
+(20, 5),
+(21, 6),
+(22, 7),
+(23, 8),
+(24, 9),
+(25, 10),
+(26, 11),
+(27, 12),
+(28, 13),
+(29, 14),
+(30, 15);
+
+
+
 
 --SET IDENTITY_INSERT UserOrganization OFF;
 
@@ -336,7 +486,11 @@ INSERT INTO Events (EventID , EventName, EventDesc, Time, Venue, LinkToJoin) VAL
 (8, 'Greater Arizona : Mapping Place, history and transformations', 'Exhibit, Environment and Humanity', '17:30', 'COWDN', ''),
 (9, 'Doctoral Recital Series', 'Alpha Chi Omega presents collaborative piano recital', '16:00', 'Hassayampa Academic Village', ''),
 (10, 'Legal Issues in Design and Construction', 'Join us for lunch as we try to stump our panel of experts by asking them difficult, if not impossible, construction law questions.', '14:00', 'BAC', ''),
-(11, 'Passion in Action Summit', 'Topics include immigration and sustainability ', '16:00', 'Discovery', '');
+(11, 'Passion in Action Summit', 'Topics include immigration and sustainability ', '15:00', 'Discovery', ''),
+(12, 'Cisco Innovation Challenge', 'live pitch competition where students can win seed funding to start their ventures ', '16:30', 'Mercado C', ''),
+(13, 'Cutural Festival', 'Come enjoy live performances, activities and food that is representative of the variety of cultures our students bring to the ASU community.', '10:00', 'WellsFargo Arena', ''),
+(14, 'Ditch the Dumpster', 'donate and recycle unwanted items as they are moving out of their residence hall ', '9:00', 'Palo Verde Residence Hall', ''),
+(15, 'Vault Gallery Photo Exhibit', 'The Downtown Phoenix campus library is pleased to exhibit the work of Ryan Carey', '16:00', 'Mercado E', '');
 
 SET IDENTITY_INSERT Events OFF;
 
@@ -351,29 +505,49 @@ INSERT INTO EventOrganization(EventID, OrgID) VALUES
 (7, 1),
 (8, 7),
 (9, 8),
-(10, 3);
+(10, 3),
+(11, 11),
+(12, 12),
+(13,13),
+(14,14),
+(15,15);
 
 --SET IDENTITY_INSERT EventOrganization OFF;
 
 SET IDENTITY_INSERT Categories ON;
 
-INSERT INTO Categories (CategoryID, CategoryName, CountOfOrgs) VALUES
-(1, 'Academic', 158),
-(2, 'Biotechnology', 1),
-(3, 'Community and Lifestyle', 4), 
-(4, 'Data and Analytics', 4),
-(5, 'Entrepreneurship/Innovation', 18),
-(6, 'Financial Services', 2),
-(7, 'International', 15),
-(8, 'Political', 29),
-(9, 'Science and Engineering', 6),
-(10,'Sports', 3),
-(11,'Sustainability', 35);
+INSERT INTO Categories (CategoryID, CategoryName) VALUES
+(1, 'Academic'),
+(2, 'Biotechnology'),
+(3, 'Community and Lifestyle'), 
+(4, 'Data and Analytics'),
+(5, 'Entrepreneurship/Innovation'),
+(6, 'Financial Services'),
+(7, 'International'),
+(8, 'Political'),
+(9, 'Science and Engineering'),
+(10,'Sports'),
+(11,'Sustainability');
 
 
 SET IDENTITY_INSERT Categories OFF;
 
+--SET IDENTITY_INSERT CategoryOrganization  ON;
 
+INSERT INTO CategoryOrganization (CategoryID , OrgID) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10),
+(11, 1);
+
+--SET IDENTITY_INSERT CategoryOrganization  OFF;
 SET IDENTITY_INSERT Documents ON;
 
 INSERT INTO Documents (DocID, DocName, DocDesc, DocLink) VALUES
