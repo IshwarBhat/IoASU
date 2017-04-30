@@ -438,6 +438,8 @@ INSERT INTO UserDepartment (UserID, DepID) VALUES
 
 --SET IDENTITY_INSERT UserOrganization ON;
 INSERT INTO UserOrganization ( UserID, OrgID) VALUES
+(1, 3),
+(1, 7),
 (1, 10),
 (2, 9),
 (3, 8),
