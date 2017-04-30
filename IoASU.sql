@@ -186,8 +186,6 @@ INSERT INTO CampusOrganization (CampusID, OrgID) VALUES
 (5, 14),
 (6, 15);
 
-Select * FROM CampusOrganization;
-
 --SET IDENTITY_INSERT CampusOrganization OFF;
 
 
