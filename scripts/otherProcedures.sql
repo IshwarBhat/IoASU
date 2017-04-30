@@ -13,3 +13,5 @@ INSERT INTO Documents (DocName, DocDesc, DocLink) VALUES (@DocName,@DocDesc, '')
 SELECT @ScopeIdentity=SCOPE_IDENTITY();
 INSERT INTO DocumentOrganization (DocID, OrgID) VALUES (@ScopeIdentity, @OrgID);
 END
+
+EXEC sp_DocumentUpload 1, 'TestName1','Test Desc 1';

@@ -11,4 +11,5 @@ BEGIN
    FROM UserOrganization WHERE UserID = @UserID)
 END;
 
+-- Test:
 EXEC sp_OrgListForUser 1
