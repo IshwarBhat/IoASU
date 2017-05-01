@@ -49,20 +49,25 @@ AS
 
 DECLARE @PasswordSalt VARCHAR(128);
 DECLARE @Result VARCHAR(20);
-
+DECLARE @UserID INT;
+SET @UserID = 0;
 IF (SELECT Password from Users WHERE ASUID = @ASUID) IS NULL
 SET @Result = 'NA'
 ELSE
 BEGIN
   IF (SELECT HASHBYTES('SHA2_512', @Password + PasswordSalt) FROM Users WHERE ASUID = @ASUID) =
     (SELECT Password FROM Users WHERE ASUID = @ASUID)
-  SET @Result = 'Success'
+  BEGIN
+    SET @Result = 'Success';
+    SET @UserID = (SELECT UserID FROM Users WHERE ASUID = @ASUID);
+  END
   ELSE SET @Result = 'Failure'
 ;END
-SELECT @Result;
+SELECT @Result AS status, @UserID AS UserID;
 -------------------------------------------------------------------------------------------------
 /* Testing:
--- USE as Dynamic SQL
+EXEC sp_ValidateUser 'pbuffet', 'January01@'
+-- USING as Dynamic SQL:
 DECLARE @ASUID VARCHAR(20);
 DECLARE @Password VARCHAR(20);
 DECLARE @SQLquery NVARCHAR(50);

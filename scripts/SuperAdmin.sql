@@ -1,5 +1,5 @@
 --View for campuses and number of organizations on each campus 
-
+GO
 create view CampusOrganizationCountView as
 select Campuses.CampusID,CampusName,count(*) as 'Number of organizations'
 from Campuses inner join CampusOrganization
@@ -8,7 +8,7 @@ Campuses.CampusID=CampusOrganization.CampusID
 group by Campuses.CampusID,CampusName
 
 --View for categories and number of organizations
-
+GO
 create view CategoryOrganizationCountView as
 select Categories.CategoryID,CategoryName,count(*) as 'Number of organizations'
 from Categories inner join CategoryOrganization
@@ -17,7 +17,7 @@ Categories.CategoryID=CategoryOrganization.CategoryID
 group by Categories.CategoryID,CategoryName
 
 --Stored procedure with CTE for organizations with respective campus and category
-
+GO
 create proc sp_OrganizationCategoryCampus
 as
 begin
