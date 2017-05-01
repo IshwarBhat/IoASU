@@ -4,7 +4,7 @@
 USE master;
 GO
 
-alter database IoASU set single_user with rollback immediate;
+-- alter database IoASU set single_user with rollback immediate;
 
 IF  DB_ID('IoASU') IS NOT NULL
 DROP DATABASE IoASU;
@@ -48,7 +48,7 @@ CREATE TABLE Departments (
 CREATE TABLE Users (
   UserID            INT            PRIMARY KEY   IDENTITY,
   ASUID             VARCHAR(20),
-  Password          VARCHAR(128) NOT NULL,
+  Password          VARBINARY(128) NOT NULL,
   PasswordSalt      VARCHAR(128),
   LName             VARCHAR(255) NOT NULL,
   FName             VARCHAR(255) NOT NULL,
@@ -215,37 +215,44 @@ SET IDENTITY_INSERT Users ON;
 SELECT* FROM Organizations;
 SELECT* FROM USERS;
 INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio) VALUES
-(1, 'pbuffet', 'January01@', NULL, 'Buffet', 'Pheobe', 'Information Technology Student'),
-(2, 'kclarkson', 'February8', NULL, 'Clarkson', 'Kelly', 'Civil Engineering Student'),
-(3, 'bpitt', 'March123@', NULL, 'Pitt', 'Brad', 'Biomedical Student'),
-(4, 'jlawrence', 'April09%', NULL, 'Tribianni', 'Joseph', 'Biodesign Student'),
-(5, 'jtribianni', 'June123@', NULL, 'Buffet', 'Pheobe', 'Computer Science Student'),
-(6, 'cbing', 'Flower##', NULL, 'Bing', 'Chandler', 'Graphic Information technology Student'),
-(7, 'rgeller', 'September9@', NULL, 'Geller', 'Ross', 'Law Student'),
-(8, 'rgreen', 'August!120', NULL, 'Green', 'Rachel', 'Accounting Student'),
-(9, 'mgeller', 'December%2', NULL, 'Geller', 'Monica', 'Software Engineering Student'),
-(10,'omunn', 'october003!', NULL, 'Munn', 'Olivia', 'Real Estate Student'),
-(11,'mkohl', 'purple365@', NULL, 'Kohl', 'Melissa', ' Dance Student'),
-(12,'arigby', 'tesla07!&', NULL, 'Rigby', 'Adam', 'Digital Culture Student'),
-(13,'ajolie', 'pitt760!&&', NULL, 'Jolie', 'Angelina', 'Industrial Design Student'),
-(14,'cphelps', 'summer2654', NULL, 'Phelps', 'Chase', 'Music Student'),
-(15,'kperry', 'paris085!', NULL, 'Perry', 'katy', 'Theatre Student'),
-(16,'jtimberlake', 'tennesse653', NULL, 'Timberlake', 'Justin', 'Visual Communication Student'),
-(17,'jparsons', 'winter34!&', NULL, 'Parsons', 'Jim', 'Construction Management Student'),
-(18,'tcruise', 'topgun&&', NULL, 'Cruise', 'Tom', 'Environmental Technology Management Student'),
-(19,'ldicaprio', 'titanic58!', NULL, 'DiCaprio', 'Leonardo', 'Software Engineering Student'),
-(20,'hjackman', 'wolverine34!&', NULL, 'Jackman', 'Hugh', 'Information Technology Student'), 
-(21,'sjohansson', 'lucy986@!', NULL, 'Johansson', 'Scarlett', 'Information Technology Student'),
-(22,'mstreep', 'mamamia978!', NULL, 'Streep', 'Meryl', 'Civil Engineering Student'),
-(23,'nportman', 'blackswan234!', NULL, 'Portman', 'Natalie', 'Biomedical Student'),
-(24,'mmccarthy', 'spy000!', NULL, 'McCarthy', 'Melissa', 'Biodesign Student'),
-(25,'mfox', 'jonahhex6567!', NULL, 'Fox', 'Megan', 'Computer Science Student'),
-(26,'khudson', 'Bridewars111!', NULL, 'Hudson', 'kate', 'Graphic Information technology Student'),
-(27,'mdamon', 'departed986!', NULL, 'Damon', 'Matt', 'Law Student'),
-(28,'thanks', 'Sully*@@12!', NULL, 'Hanks', 'Tom', 'Accounting Student'),
-(29,'cbale', 'americanhustle5&&', NULL, 'Bale', 'Christian', 'Dance Student'),
-(30,'jdepp', 'pirates876!', NULL, 'Depp', 'Johnny', 'Theatre Student');
+(1, 'pbuffet',        HASHBYTES('SHA2_512', 'January01@' + '1pbuffet'),      '1pbuffet', 'Buffet', 'Pheobe', 'Information Technology Student'),
+(2, 'kclarkson',      HASHBYTES('SHA2_512', 'February8' + '2kclarkson'),     '2kclarkson', 'Clarkson', 'Kelly', 'Civil Engineering Student'),
+(3, 'bpitt',          HASHBYTES('SHA2_512', 'March123@' + '3bpitt'),         '3bpitt', 'Pitt', 'Brad', 'Biomedical Student'),
+(4, 'jlawrence',      HASHBYTES('SHA2_512', 'April09%' + '4jlawrence'),      '4jlawrence', 'Tribianni', 'Joseph', 'Biodesign Student'),
+(5, 'jtribianni',     HASHBYTES('SHA2_512', 'June123@' + '5jtribianni'),     '5jtribianni', 'Buffet', 'Pheobe', 'Computer Science Student'),
+(6, 'cbing',          HASHBYTES('SHA2_512', 'Flower##' + '6cbing'),          '6cbing', 'Bing', 'Chandler', 'Graphic Information technology Student'),
+(7, 'rgeller',        HASHBYTES('SHA2_512', 'September9@' + '7rgeller'),     '7rgeller', 'Geller', 'Ross', 'Law Student'),
+(8, 'rgreen',         HASHBYTES('SHA2_512', 'August!120' + '8rgreen'),       '8rgreen', 'Green', 'Rachel', 'Accounting Student'),
+(9, 'mgeller',        HASHBYTES('SHA2_512', 'December%2' + '9mgeller'),      '9mgeller', 'Geller', 'Monica', 'Software Engineering Student'),
+(10,'omunn',          HASHBYTES('SHA2_512', 'october003!' + '10omunn'),       '10omunn', 'Munn', 'Olivia', 'Real Estate Student'),
+(11,'mkohl',          HASHBYTES('SHA2_512', 'purple365@' + '11mkohl'),        '11mkohl', 'Kohl', 'Melissa', ' Dance Student'),
+(12,'arigby',         HASHBYTES('SHA2_512', 'tesla07!&' + '12arigby'),        '12arigby', 'Rigby', 'Adam', 'Digital Culture Student'),
+(13,'ajolie',         HASHBYTES('SHA2_512', 'pitt760!&&' + '13ajolie'),       '13ajolie', 'Jolie', 'Angelina', 'Industrial Design Student'),
+(14,'cphelps',        HASHBYTES('SHA2_512', 'summer2654' + '14cphelps'),      '14cphelps', 'Phelps', 'Chase', 'Music Student'),
+(15,'kperry',         HASHBYTES('SHA2_512', 'paris085!' + '15kperry'),        '15kperry', 'Perry', 'katy', 'Theatre Student'),
+(16,'jtimberlake',    HASHBYTES('SHA2_512', 'tennesse653' + '16jtimberlake'), '16jtimberlake', 'Timberlake', 'Justin', 'Visual Communication Student'),
+(17,'jparsons',       HASHBYTES('SHA2_512', 'winter34!&' + '17jparsons'),     '17jparsons', 'Parsons', 'Jim', 'Construction Management Student'),
+(18,'tcruise',        HASHBYTES('SHA2_512', 'topgun&&' + '18tcruise'),        '18tcruise', 'Cruise', 'Tom', 'Environmental Technology Management Student'),
+(19,'ldicaprio',      HASHBYTES('SHA2_512', 'titanic58!' + '19ldicaprio'),    '19ldicaprio', 'DiCaprio', 'Leonardo', 'Software Engineering Student'),
+(20,'hjackman',       HASHBYTES('SHA2_512', 'wolverine34!&' + '20hjackman'),  '20hjackman', 'Jackman', 'Hugh', 'Information Technology Student'), 
+(21,'sjohansson',     HASHBYTES('SHA2_512', 'lucy986@!' + '21sjohansson'),    '21sjohansson', 'Johansson', 'Scarlett', 'Information Technology Student'),
+(22,'mstreep',        HASHBYTES('SHA2_512', 'mamamia978!' + '22mstreep'),     '22mstreep', 'Streep', 'Meryl', 'Civil Engineering Student'),
+(23,'nportman',       HASHBYTES('SHA2_512', 'blackswan234!' + '23nportman'),  '23nportman', 'Portman', 'Natalie', 'Biomedical Student'),
+(24,'mmccarthy',      HASHBYTES('SHA2_512', 'spy000!' + '24mmccarthy'),       '24mmccarthy', 'McCarthy', 'Melissa', 'Biodesign Student'),
+(25,'mfox',           HASHBYTES('SHA2_512', 'jonahhex6567!' + '25mfox'),      '25mfox', 'Fox', 'Megan', 'Computer Science Student'),
+(26,'khudson',        HASHBYTES('SHA2_512', 'Bridewars111!' + '26khudson'),   '26khudson', 'Hudson', 'kate', 'Graphic Information technology Student'),
+(27,'mdamon',         HASHBYTES('SHA2_512', 'departed986!' + '27mdamon'),     '27mdamon', 'Damon', 'Matt', 'Law Student'),
+(28,'thanks',         HASHBYTES('SHA2_512', 'Sully*@@12!' + '28thanks'),      '28thanks', 'Hanks', 'Tom', 'Accounting Student'),
+(29,'cbale',          HASHBYTES('SHA2_512', 'americanhustle5&&' + '29cbale'), '29cbale', 'Bale', 'Christian', 'Dance Student'),
+(30,'jdepp',          HASHBYTES('SHA2_512', 'pirates876!' + '30jdepp'),       '30jdepp', 'Depp', 'Johnny', 'Theatre Student');
 
+-- Ideally, PasswordSalt should be a true random string for each entry.
+-- For our Proof-Of-Concept purposes, a concatenation of UserID and ASUID (Both of which are unique) will work.
+
+-- UPDATE Users SET PasswordSalt = CONVERT(VARCHAR, UserID) + ASUID;
+
+-- Use SHA2_512 with a concatenation of Password and PasswordSalt to generate a 20-byte Encrypted Password
+-- UPDATE Users SET Password =  HASHBYTES('SHA2_512',Password + PasswordSalt)
 
 SET IDENTITY_INSERT Users OFF;
 
