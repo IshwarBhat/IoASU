@@ -4,7 +4,7 @@
 USE master;
 GO
 
---alter database IoASU set single_user with rollback immediate;
+alter database IoASU set single_user with rollback immediate;
 
 IF  DB_ID('IoASU') IS NOT NULL
 DROP DATABASE IoASU;
@@ -122,6 +122,23 @@ CREATE TABLE DocumentOrganization (
   PRIMARY KEY (DocID, OrgID)
 );
 
+CREATE TABLE Roles (
+
+  RoleID   INT    NOT NULL,
+  Description	 VARCHAR(255) NOT NULL, 
+  PRIMARY KEY (RoleID)
+);
+
+CREATE TABLE UserRoles (
+
+  RoleID   INT      REFERENCES Roles (RoleID)     NOT NULL,
+  UserID   INT      REFERENCES Users (UserID)	   NOT NULL
+  PRIMARY KEY (RoleID, UserID)
+);
+
+
+
+
 -- Insert data into the tables
 
 SET IDENTITY_INSERT Campuses ON;
@@ -157,12 +174,7 @@ INSERT INTO Organizations (OrgID, Name, Email, Phone, MeetingVenue, WeeklyMeetDa
 (15,'TECH Devils', 'techdevils@asu.edu', '3349877823', 'Fulton Center', 'Wednesday', '16:50', 'techdevils.com', '2013-11-01');
 
 
- 
-
 SET IDENTITY_INSERT Organizations OFF;
-
-
---SET IDENTITY_INSERT CampusOrganization ON;
 
 INSERT INTO CampusOrganization (CampusID, OrgID) VALUES
 (1, 1),
@@ -180,9 +192,6 @@ INSERT INTO CampusOrganization (CampusID, OrgID) VALUES
 (6, 13),
 (5, 14),
 (6, 15);
-
---SET IDENTITY_INSERT CampusOrganization OFF;
-
 
 
 SET IDENTITY_INSERT Departments ON;
@@ -203,8 +212,8 @@ INSERT INTO Departments (DepID, Department) VALUES
 SET IDENTITY_INSERT Departments OFF;
 
 SET IDENTITY_INSERT Users ON;
-
-
+SELECT* FROM Organizations;
+SELECT* FROM USERS;
 INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio) VALUES
 (1, 'pbuffet', 'January01@', NULL, 'Buffet', 'Pheobe', 'Information Technology Student'),
 (2, 'kclarkson', 'February8', NULL, 'Clarkson', 'Kelly', 'Civil Engineering Student'),
@@ -240,8 +249,6 @@ INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio) VAL
 
 SET IDENTITY_INSERT Users OFF;
 
---SET IDENTITY_INSERT UserPhones ON;
-
 INSERT INTO UserPhones (UserID, Phone) VALUES
 (1, '4806742876'),
 (2, '6027321879'),
@@ -274,11 +281,6 @@ INSERT INTO UserPhones (UserID, Phone) VALUES
 (29, '2234875009'),
 (30, '2230975234');
 
-
---SET IDENTITY_INSERT UserPhones OFF;
-
-
---SET IDENTITY_INSERT UserEmails ON;
 
 INSERT INTO UserEmails(UserID, Email) VALUES
 
@@ -314,10 +316,6 @@ INSERT INTO UserEmails(UserID, Email) VALUES
 (30, 'jdepp@asu.edu');
 
 
-
---SET IDENTITY_INSERT UserEmails OFF;
-
---SET IDENTITY_INSERT UserDepartment ON;
 INSERT INTO UserDepartment (UserID, DepID) VALUES
 (1, '100'),
 (2, '200'),
@@ -351,9 +349,6 @@ INSERT INTO UserDepartment (UserID, DepID) VALUES
 (30, '1000');
 
 
---SET IDENTITY_INSERT UserDepartment OFF;
-
---SET IDENTITY_INSERT UserOrganization ON;
 INSERT INTO UserOrganization ( UserID, OrgID, Status) VALUES
 (1, 3, 'Active'),
 (1, 7, 'Active'),
@@ -504,9 +499,6 @@ INSERT INTO UserOrganization ( UserID, OrgID, Status) VALUES
 (30, 7, 'Active'),
 (30, 1, 'Active');
 
-
---SET IDENTITY_INSERT UserOrganization OFF;
-
 SET IDENTITY_INSERT Events ON;
 INSERT INTO Events (EventID , EventName, EventDesc, Time, Venue, LinkToJoin) VALUES
 (1, 'Doctoral Recital Series', 'Alpha Chi Omega presents collaborative piano recital', '17:30', 'COWDN', ''),
@@ -527,7 +519,7 @@ INSERT INTO Events (EventID , EventName, EventDesc, Time, Venue, LinkToJoin) VAL
 
 SET IDENTITY_INSERT Events OFF;
 
---SET IDENTITY_INSERT EventOrganization ON;
+
 INSERT INTO EventOrganization(EventID, OrgID) VALUES
 (1, 5),
 (2, 10),
@@ -544,8 +536,6 @@ INSERT INTO EventOrganization(EventID, OrgID) VALUES
 (13,13),
 (14,14),
 (15,15);
-
---SET IDENTITY_INSERT EventOrganization OFF;
 
 SET IDENTITY_INSERT Categories ON;
 
@@ -565,8 +555,6 @@ INSERT INTO Categories (CategoryID, CategoryName) VALUES
 
 SET IDENTITY_INSERT Categories OFF;
 
---SET IDENTITY_INSERT CategoryOrganization  ON;
-
 INSERT INTO CategoryOrganization (CategoryID , OrgID) VALUES
 (1, 1),
 (2, 2),
@@ -580,7 +568,7 @@ INSERT INTO CategoryOrganization (CategoryID , OrgID) VALUES
 (10, 10),
 (11, 1);
 
---SET IDENTITY_INSERT CategoryOrganization  OFF;
+
 SET IDENTITY_INSERT Documents ON;
 
 INSERT INTO Documents (DocID, DocName, DocDesc, DocLink) VALUES
@@ -598,9 +586,6 @@ INSERT INTO Documents (DocID, DocName, DocDesc, DocLink) VALUES
 
 SET IDENTITY_INSERT Documents OFF;
 
-
---SET IDENTITY_INSERT DocumentOrganization ON; 
-
 INSERT INTO DocumentOrganization (DocID, OrgID) VALUES
 (1,2),
 (2,3),
@@ -613,7 +598,20 @@ INSERT INTO DocumentOrganization (DocID, OrgID) VALUES
 (9,4),
 (10,8);
 
---SET IDENTITY_INSERT Documents OFF
+INSERT INTO Roles (RoleID, Description) VALUES
+
+(1, 'SuperAdmin'),
+(2, 'OrgAdmin'),
+(3, 'User');
+
+INSERT INTO UserRoles (RoleID, UserID) VALUES
+('1', '1'),
+('2', '5'),
+('2', '7'),
+('3', '12'),
+('3', '19'),
+('3', '25');
+
 
 -- Create a user named MGSUser
 
