@@ -34,3 +34,42 @@ END;
 
 -- Test:
 -- sp_MyProfileForUser 1
+
+-------------------------------------------------------------------------------------------------
+-- Procedure to Validate User.
+-- Three cases or output possibilities:
+-- 1. 'NA' = User Does Not Exist
+-- 2. 'Success' = Login Successful
+-- 3. 'Failure' = Password Incorrect
+GO
+CREATE PROC sp_ValidateUser
+@ASUID VARCHAR(20),
+@Password VARCHAR(20)
+AS
+
+DECLARE @PasswordSalt VARCHAR(128);
+DECLARE @Result VARCHAR(20);
+
+IF (SELECT Password from Users WHERE ASUID = @ASUID) IS NULL
+SET @Result = 'NA'
+ELSE
+BEGIN
+  IF (SELECT HASHBYTES('SHA2_512', @Password + PasswordSalt) FROM Users WHERE ASUID = @ASUID) =
+    (SELECT Password FROM Users WHERE ASUID = @ASUID)
+  SET @Result = 'Success'
+  ELSE SET @Result = 'Failure'
+;END
+SELECT @Result;
+-------------------------------------------------------------------------------------------------
+/* Testing:
+-- USE as Dynamic SQL
+DECLARE @ASUID VARCHAR(20);
+DECLARE @Password VARCHAR(20);
+DECLARE @SQLquery NVARCHAR(50);
+SET @ASUID = 'tcruise'
+SET @Password = 'topgun&&'
+
+-- Implement below in login() function of Python in Django
+SET @SQLQUERY = N'sp_ValidateUser ' + '''' + @ASUID + ''', ' + '''' + @Password + ''''
+EXEC sp_executesql @SQLQUERY
+*/
