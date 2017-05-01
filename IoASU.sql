@@ -161,7 +161,7 @@ INSERT INTO Organizations (OrgID, Name, Email, Phone, MeetingVenue, WeeklyMeetDa
 (2, 'Active Minds at Arizona State University', 'aminds@asu.edu', '4805782052', 'Art', 'Friday', '16:00', 'aminds.com', '2013-05-23'),
 (3, 'Adworks', 'adworks@asu.edu', '4801234357', 'ECE', 'Tuesday', '17:00', 'adworks.com', '2011-01-21'),
 (4, 'Aerospace Innovation Club', 'aeroinnoclub@asu.edu', '4806723451', 'Physical Sciences', 'Monday', '19:00', 'aeroinnoclub.org', '2015-03-20'),
-(5, 'Alpha Chi Omega Sorority', 'alphachiomega@asu.edu', '4803481228', 'Alpha Chi Omega', 'Thursday', '17:00', 'alphachiomega.com', '2014-02-28'),
+(5, 'Alpha Chi Omega Sorority', 'alphachiomega@asu.edu', '4803481228', 'BAC', 'Thursday', '17:00', 'alphachiomega.com', '2014-02-28'),
 (6, 'Barrett Leadership and Service Team', 'barrettLST@asu.edu', '4805987937', 'Barrett Honors College', 'Wednesday', '18:00', 'barrettlst.org', '2010-07-11'),
 (7, 'Bhakti Yoga Club', 'bhaktiyoga@asu.edu', '4802651298', 'CPCOM', 'Monday', '17:00', 'bhaktiyoga.com', '2010-08-12'),
 (8, 'bioSyntagma', 'biosyntagma@asu.edu', '4805640099', 'Hassayampa Academic Village', 'Wednesday', '19:00', 'biosyntagma.org', '2012-11-23'),
@@ -212,14 +212,13 @@ INSERT INTO Departments (DepID, Department) VALUES
 SET IDENTITY_INSERT Departments OFF;
 
 SET IDENTITY_INSERT Users ON;
-SELECT* FROM Organizations;
-SELECT* FROM USERS;
+
 INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio) VALUES
 (1, 'pbuffet',        HASHBYTES('SHA2_512', 'January01@' + '1pbuffet'),      '1pbuffet', 'Buffet', 'Pheobe', 'Information Technology Student'),
 (2, 'kclarkson',      HASHBYTES('SHA2_512', 'February8' + '2kclarkson'),     '2kclarkson', 'Clarkson', 'Kelly', 'Civil Engineering Student'),
 (3, 'bpitt',          HASHBYTES('SHA2_512', 'March123@' + '3bpitt'),         '3bpitt', 'Pitt', 'Brad', 'Biomedical Student'),
-(4, 'jlawrence',      HASHBYTES('SHA2_512', 'April09%' + '4jlawrence'),      '4jlawrence', 'Tribianni', 'Joseph', 'Biodesign Student'),
-(5, 'jtribianni',     HASHBYTES('SHA2_512', 'June123@' + '5jtribianni'),     '5jtribianni', 'Buffet', 'Pheobe', 'Computer Science Student'),
+(4, 'jlawrence',      HASHBYTES('SHA2_512', 'April09%' + '4jlawrence'),      '4jlawrence', 'Lawrence', 'Jennifer', 'Biodesign Student'),
+(5, 'jtribianni',     HASHBYTES('SHA2_512', 'June123@' + '5jtribianni'),     '5jtribianni', 'Tribianni', 'Joey', 'Computer Science Student'),
 (6, 'cbing',          HASHBYTES('SHA2_512', 'Flower##' + '6cbing'),          '6cbing', 'Bing', 'Chandler', 'Graphic Information technology Student'),
 (7, 'rgeller',        HASHBYTES('SHA2_512', 'September9@' + '7rgeller'),     '7rgeller', 'Geller', 'Ross', 'Law Student'),
 (8, 'rgreen',         HASHBYTES('SHA2_512', 'August!120' + '8rgreen'),       '8rgreen', 'Green', 'Rachel', 'Accounting Student'),
@@ -506,6 +505,9 @@ INSERT INTO UserOrganization ( UserID, OrgID, Status) VALUES
 (30, 7, 'Active'),
 (30, 1, 'Active');
 
+Update Events
+Set Time= getdate();
+Select* from Events
 SET IDENTITY_INSERT Events ON;
 INSERT INTO Events (EventID , EventName, EventDesc, Time, Venue, LinkToJoin) VALUES
 (1, 'Doctoral Recital Series', 'Alpha Chi Omega presents collaborative piano recital', '17:30', 'COWDN', ''),
@@ -615,9 +617,34 @@ INSERT INTO UserRoles (RoleID, UserID) VALUES
 ('1', '1'),
 ('2', '5'),
 ('2', '7'),
+('3', '2'),
+('3', '3'),
+('3', '4'),
+('3', '6'),
+('3', '8'),
+('3', '9'),
+('3', '10'),
+('3', '11'),
 ('3', '12'),
+('3', '13'),
+('3', '14'),
+('3', '15'),
+('3', '16'),
+('3', '17'),
+('3', '18'),
 ('3', '19'),
-('3', '25');
+('3', '20'),
+('3', '21'),
+('3', '22'),
+('3', '23'),
+('3', '24'),
+('3', '25'),
+('3', '26'),
+('3', '27'),
+('3', '28'),
+('3', '29'),
+('3', '30');
+
 
 
 -- Create a user named MGSUser
