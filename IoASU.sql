@@ -55,23 +55,17 @@ CREATE TABLE Users (
   Bio               VARCHAR(255)
     );
 
-CREATE TABLE Phones (
-  Phone             VARCHAR(10)    PRIMARY KEY
-);
 
 CREATE TABLE UserPhones (
   UserID            INT             REFERENCES Users (UserID)      NOT NULL,
-  Phone             VARCHAR(10)     REFERENCES Phones (Phone)      NOT NULL
+  Phone             VARCHAR(10)     NOT NULL,
   PRIMARY KEY (UserID, Phone)
 );
 
-CREATE TABLE Emails (
-  Email             VARCHAR(255)   PRIMARY KEY
-);
 
 CREATE TABLE UserEmails (
   UserID            INT             REFERENCES Users (UserID)      NOT NULL,
-  Email             VARCHAR(255)     REFERENCES Emails (Email)      NOT NULL,
+  Email             VARCHAR(255)    NOT NULL,
   PRIMARY KEY (UserID, Email)
 );
 
@@ -85,6 +79,7 @@ CREATE TABLE UserDepartment (
 CREATE TABLE UserOrganization (
   UserID          INT            REFERENCES Users (UserID)         NOT NULL, 
   OrgID           INT            REFERENCES Organizations (OrgID)  NOT NULL,
+  Status		  VARCHAR(25)	 NOT NULL,
   PRIMARY KEY (UserID, OrgID)
 );
 
@@ -235,7 +230,7 @@ INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio) VAL
 (22,'mstreep', 'mamamia978!', NULL, 'Streep', 'Meryl', 'Civil Engineering Student'),
 (23,'nportman', 'blackswan234!', NULL, 'Portman', 'Natalie', 'Biomedical Student'),
 (24,'mmccarthy', 'spy000!', NULL, 'McCarthy', 'Melissa', 'Biodesign Student'),
-(25,'mfox', 'jonahhex6567!&', NULL, 'Fox', 'Megan', 'Computer Science Student'),
+(25,'mfox', 'jonahhex6567!', NULL, 'Fox', 'Megan', 'Computer Science Student'),
 (26,'khudson', 'Bridewars111!', NULL, 'Hudson', 'kate', 'Graphic Information technology Student'),
 (27,'mdamon', 'departed986!', NULL, 'Damon', 'Matt', 'Law Student'),
 (28,'thanks', 'Sully*@@12!', NULL, 'Hanks', 'Tom', 'Accounting Student'),
@@ -243,47 +238,7 @@ INSERT INTO Users (UserID, ASUID, Password, PasswordSalt, LName, FName, Bio) VAL
 (30,'jdepp', 'pirates876!', NULL, 'Depp', 'Johnny', 'Theatre Student');
 
 
-
 SET IDENTITY_INSERT Users OFF;
-
-
---SET IDENTITY_INSERT Phones ON;
-
-INSERT INTO Phones (Phone) VALUES
-('4806742876'),
-('6027321879'),
-('5204372595'),
-('6020981235'),
-('5201256822'),
-('4803346543'),
-('4805572397'),
-('6022347654'),
-('4809124531'),
-('5203228767'),
-('4800734576'),
-('6024768769'),
-('5202343222'),
-('6022343424'),
-('5202333234'),
-('4800999221'),
-('4809800094'),
-('6024200975'),
-('4804522334'),
-('5208676668'),
-('4803342344'),
-('4562345524'),
-('5264563454'),
-('7865443322'),
-('4524565652'),
-('2454623444'),
-('6556322097'),
-('3452409424'),
-('2234875009'),
-('2230975234');
-
-
-
---SET IDENTITY_INSERT Phones OFF;
 
 --SET IDENTITY_INSERT UserPhones ON;
 
@@ -322,42 +277,6 @@ INSERT INTO UserPhones (UserID, Phone) VALUES
 
 --SET IDENTITY_INSERT UserPhones OFF;
 
---SET IDENTITY_INSERT Emails ON;
-
-INSERT INTO Emails (Email) VALUES
-('pbuffet@asu.edu'),
-('kclarkson@asu.edu'),
-('bpitt@asu.edu'),
-('jlawrence@asu.edu'),
-('jtribianni@asu.edu'),
-('cbing@asu.edu'),
-('rgeller@asu.edu'),
-('rgreen@asu.edu'),
-('mgeller@asu.edu'),
-('omunn@asu.edu'),
-('mkohl@asu.edu'),
-('arigby@asu.edu'),
-('ajolie@asu.edu'),
-('cphelps@asu.edu'),
-('kperry@asu.edu'),
-('jtimberlake@asu.edu'),
-('jparsons@asu.edu'),
-('tcruise@asu.edu'),
-('ldicaprio@asu.edu'),
-('hjackman@asu.edu'),
-('sjohansson@asu.edu'),
-('mstreep@asu.edu'),
-('nportman@asu.edu'),
-('mmccarthy@asu.edu'),
-('mfox@asu.edu'),
-('khudson@asu.edu'),
-('mdamon@asu.edu'),
-('thanks@asu.edu'),
-('cbale@asu.edu'),
-('jdepp@asu.edu');
-
-
---SET IDENTITY_INSERT Emails OFF;
 
 --SET IDENTITY_INSERT UserEmails ON;
 
@@ -435,41 +354,155 @@ INSERT INTO UserDepartment (UserID, DepID) VALUES
 --SET IDENTITY_INSERT UserDepartment OFF;
 
 --SET IDENTITY_INSERT UserOrganization ON;
-INSERT INTO UserOrganization ( UserID, OrgID) VALUES
-(1, 3),
-(1, 7),
-(1, 10),
-(2, 9),
-(3, 8),
-(4, 7),
-(5, 6),
-(6, 5),
-(7, 4),
-(8, 3),
-(9, 2),
-(10, 1),
-(11, 11),
-(12, 12),
-(13, 13),
-(14, 14),
-(15, 15),
-(16, 1),
-(17, 2),
-(18, 3),
-(19, 4),
-(20, 5),
-(21, 6),
-(22, 7),
-(23, 8),
-(24, 9),
-(25, 10),
-(26, 11),
-(27, 12),
-(28, 13),
-(29, 14),
-(30, 15);
-
-
+INSERT INTO UserOrganization ( UserID, OrgID, Status) VALUES
+(1, 3, 'Active'),
+(1, 7, 'Active'),
+(1, 10, 'Active'),
+(2, 9, 'Active'),
+(2, 15, 'Active'),
+(2, 4, 'Active'),
+(2, 2, 'Active'),
+(3, 8, 'Active'),
+(3, 1, 'Active'),
+(3, 10, 'Active'),
+(3, 7, 'Active'),
+(4, 7, 'Active'),
+(4, 9, 'Active'),
+(4, 5, 'Active'),
+(4, 12, 'Active'),
+(5, 14, 'Active'),
+(5, 4, 'Active'),
+(5, 10, 'Active'),
+(5, 8, 'Active'),
+(6, 5, 'Active'),
+(6, 2, 'Active'),
+(6, 4, 'Active'),
+(6, 13, 'Active'),
+(6, 8, 'Active'),
+(7, 4, 'Active'),
+(7, 7, 'Active'),
+(7, 9, 'Active'),
+(7, 13, 'Active'),
+(7, 15, 'Active'),
+(8, 1, 'Active'),
+(8, 4, 'Active'),
+(8, 8, 'Active'),
+(8, 10, 'Active'),
+(8, 5, 'Active'),
+(9, 2, 'Active'),
+(9, 6, 'Active'),
+(9, 10, 'Active'),
+(9, 9, 'Active'),
+(9, 4, 'Active'),
+(10, 12, 'Active'),
+(10, 11, 'Active'),
+(10, 6, 'Active'),
+(10, 3, 'Active'),
+(10, 7,'Active'),
+(11, 15, 'Active'),
+(11, 5, 'Active'),
+(11, 7, 'Active'),
+(11, 9, 'Active'),
+(12, 15, 'Active'),
+(12, 3, 'Active'),
+(12, 8, 'Active'),
+(12, 6, 'Active'),
+(12, 10, 'Active'),
+(13, 14, 'Active'),
+(13, 3, 'Active'),
+(13, 8, 'Active'),
+(13, 2, 'Active'),
+(14, 3, 'Active'),
+(14, 13, 'Active'),
+(14, 8, 'Active'),
+(14, 2, 'Active'),
+(14, 10, 'Active'),
+(15, 2, 'Active'),
+(15, 1, 'Active'),
+(15, 8, 'Active'),
+(15, 10, 'Active'),
+(15, 13, 'Active'),
+(16, 1, 'Active'),
+(16, 4, 'Active'),
+(16, 3, 'Active'),
+(16, 8, 'Active'),
+(16, 9, 'Active'),
+(17, 15, 'Active'),
+(17, 12, 'Active'),
+(17, 6, 'Active'),
+(17, 8, 'Active'),
+(17, 4, 'Active'),
+(18, 2, 'Active'),
+(18, 4, 'Active'),
+(18, 7, 'Active'),
+(18, 10,'Active'),
+(18, 5, 'Active'),
+(18, 12, 'Active'),
+(19, 8, 'Active'),
+(19, 4, 'Active'),
+(19, 10, 'Active'),
+(19, 1, 'Active'),
+(19, 7, 'Active'),
+(19, 12, 'Active'),
+(19, 11, 'Active'),
+(19, 2, 'Active'),
+(20, 7, 'Active'),
+(20, 9, 'Active'),
+(20, 14, 'Active'),
+(20, 12, 'Active'),
+(20, 1, 'Active'),
+(21, 6, 'Active'),
+(21, 3, 'Active'),
+(21, 8, 'Active'),
+(21, 10, 'Active'),
+(21, 11, 'Active'),
+(21, 4, 'Active'),
+(22, 13, 'Active'),
+(22, 3, 'Active'),
+(22, 7, 'Active'),
+(22, 9, 'Active'),
+(22, 2, 'Active'),
+(23, 10, 'Active'),
+(23, 5, 'Active'),
+(23, 2, 'Active'),
+(23, 6, 'Active'),
+(23, 9, 'Active'),
+(24, 5, 'Active'),
+(24, 10, 'Active'),
+(24, 13, 'Active'),
+(24, 14, 'Active'),
+(24, 2, 'Active'),
+(24, 1, 'Active'),
+(25, 3, 'Active'),
+(25, 8, 'Active'),
+(25, 11, 'Active'),
+(25, 10, 'Active'),
+(25, 2, 'Active'),
+(25, 7, 'Active'),
+(25, 5, 'Active'),
+(25, 9, 'Active'),
+(26, 11, 'Active'),
+(26, 15, 'Active'),
+(26, 2, 'Active'),
+(26, 8, 'Active'),
+(27, 12, 'Active'),
+(27, 3, 'Active'),
+(27, 5, 'Active'),
+(27, 9, 'Active'),
+(27, 10, 'Active'),
+(28, 13, 'Active'),
+(28, 3, 'Active'),
+(28, 1, 'Active'),
+(28, 2, 'Active'),
+(29, 14, 'Active'),
+(29, 5, 'Active'),
+(29, 7, 'Active'),
+(29, 4, 'Active'),
+(30, 15, 'Active'),
+(30, 2, 'Active'),
+(30, 9, 'Active'),
+(30, 7, 'Active'),
+(30, 1, 'Active');
 
 
 --SET IDENTITY_INSERT UserOrganization OFF;
