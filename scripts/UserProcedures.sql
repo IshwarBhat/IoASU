@@ -1,5 +1,6 @@
 -- Stored Procedure:
 -- Return list of Organizations (Name, Email, Weblink) given a UserID
+USE IoASU;
 GO
 CREATE PROC sp_OrgListForUser
 @UserID INT
@@ -12,7 +13,7 @@ BEGIN
 END;
 
 -- Test:
-EXEC sp_OrgListForUser 1
+-- EXEC sp_OrgListForUser 1
 
 -- Stored Procedure:
 -- Return stuff for User's My Profile Page
@@ -32,4 +33,4 @@ BEGIN
 END;
 
 -- Test:
-sp_MyProfileForUser 1
+-- sp_MyProfileForUser 1
