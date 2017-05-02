@@ -893,7 +893,7 @@ END;
 -- This procedure gives the list of Organizations
 -- in a particular Campus.
 GO
-CREATE PROC sp_OrganizationsInCampus
+CREATE PROC sp_OrganizationsForCampus
 @CampusID INT
 AS
 BEGIN
@@ -902,4 +902,4 @@ BEGIN
 END
 
 -- Test:
--- EXEC sp_OrganizationsInCampus 6
+-- EXEC sp_OrganizationsForCampus 6
