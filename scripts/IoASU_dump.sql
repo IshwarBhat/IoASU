@@ -886,3 +886,20 @@ END;
 
 -- Test:
 -- EXEC sp_OrgNameForOrgAdmin 5
+
+---------------------------------------
+-- SUPERADMIN procedures:
+
+-- This procedure gives the list of Organizations
+-- in a particular Campus.
+GO
+CREATE PROC sp_OrganizationsInCampus
+@CampusID INT
+AS
+BEGIN
+  SELECT Name as OrgName FROM Organizations
+  WHERE OrgID IN (SELECT OrgID FROM CampusOrganization WHERE CampusID = @CampusID)
+END
+
+-- Test:
+-- EXEC sp_OrganizationsInCampus 6
