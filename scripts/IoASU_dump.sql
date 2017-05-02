@@ -580,33 +580,42 @@ INSERT INTO CategoryOrganization (CategoryID , OrgID) VALUES
 
 
 SET IDENTITY_INSERT Documents ON;
-
 INSERT INTO Documents (DocID, DocName, DocDesc, DocLink) VALUES
-(1, 'Member List', 'List of all members of the organization', 'aminds.com/memberlist'),
-(2, 'Student Event Planner', 'Event Planning Manual', 'adworks.com/studenteventplanner'),
-(3, 'Registration info', 'Information of  all the students who register for each events', 'barrettlst.org/reginfo'),
-(4, 'Membership requirements', 'All members must be students in good academic standing and registered at Arizona State University.', 'gba.com/membershipreq'),
-(5, 'Officer Requirements', 'All officers must be students registered at Arizona State University.', 'joys.com/officerreq'),
-(6, 'Constitution', 'All organizations required to submit their constitution when registering their student organization.', 'bhaktiyoga.com/constitution'),
-(7, 'Faculty/Staff Advisor', 'All organizations need to choose a faculty/staff advisor. The faculty/staff advisor must be a full-time faculty or staff member who works on the ASU campus.', 'gba.com/staffadvisor'),
-(8, 'Student Organization Handbook', 'Manual for student organizations', 'barrettlst.org/studentorghandbook'),
-(9, 'Advisor Commitment Form', 'Forms for faculty advisors', 'aeroinnoclub.org/advisorcommittmentform'),
-(10, 'Meeting Presentation', 'Presentations for events ', 'biosyntagma.org/presentation1');
-
+(1,  'Action for America_Doc',                       'Document for Action for America', ''),
+(2,  'Active Minds at Arizona State University_Doc', 'Document for Active Minds at Arizona State University', ''),
+(3,  'Adworks_Doc',                                  'Document for Adworks', ''),
+(4,  'Aerospace Innovation Club_Doc',                'Document for Aerospace Innovation Club', ''),
+(5,  'Alpha Chi Omega Sorority_Doc',                 'Document for Alpha Chi Omega Sorority', ''),
+(6,  'Barrett Leadership and Service Team_Doc',      'Document for Barrett Leadership and Service Team', ''),
+(7,  'Bhakti Yoga Club_Doc',                         'Document for Bhakti Yoga Club', ''),
+(8,  'bioSyntagma_Doc',                              'Document for bioSyntagma', ''),
+(9,  'Global Business Association_Doc',              'Document for Global Business Association', ''),
+(10, 'JOYS_Doc',                                     'Document for JOYS', ''),
+(11, 'Alpha Chi Omega Sorority_Doc',                 'Document for Alpha Chi Omega Sorority', ''),
+(12, 'ASU Club Golf Team_Doc',                       'Document for ASU Club Golf Team', ''),
+(13, 'Bakers at ASU_Doc',                            'Document for Bakers at ASU', ''),
+(14, 'Sustaninable Engergy Solutions_Doc',           'Document for Sustaninable Engergy Solutions', ''),
+(15, 'TECH Devils_Doc',                              'Document for TECH Devils', '');
 
 SET IDENTITY_INSERT Documents OFF;
 
+
 INSERT INTO DocumentOrganization (DocID, OrgID) VALUES
-(1,2),
-(2,3),
-(3,6),
-(4,9),
-(5,10),
-(6,7),
-(7,9),
-(8,6),
-(9,4),
-(10,8);
+(1,  1),
+(2,  2),
+(3,  3),
+(4,  4),
+(5,  5),
+(6,  6),
+(7,  7),
+(8,  8),
+(9,  9),
+(10, 10),
+(11, 11),
+(12, 12),
+(13, 13),
+(14, 14),
+(15, 15);
 
 INSERT INTO Roles (RoleID, Description) VALUES
 
