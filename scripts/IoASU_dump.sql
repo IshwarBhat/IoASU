@@ -792,6 +792,21 @@ GO
 -- Test:
 -- EXEC sp_EventsForOrg 2
 
+------------------
+-- Create a non-clustered index on Organizations table for Name field
+GO  
+-- Find an existing index named IX_Orgs_Name and delete it if found.   
+IF EXISTS (SELECT name FROM sys.indexes  
+            WHERE name = N'IX_Orgs_Name')   
+    DROP INDEX IX_Orgs_Name ON Organizations;   
+GO  
+-- Create a nonclustered index called IX_Orgs_Name   
+-- on the Organizations table using the Name column.   
+CREATE NONCLUSTERED INDEX IX_Orgs_Name
+    ON Organizations (Name);   
+GO  
+
+
 --------------------
 -- This procedure implements the Organization Search function
 -- for users
