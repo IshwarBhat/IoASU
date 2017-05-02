@@ -788,3 +788,20 @@ SET @Password = 'topgun&&'
 SET @SQLQUERY = N'sp_ValidateUser ' + '''' + @ASUID + ''', ' + '''' + @Password + ''''
 EXEC sp_executesql @SQLQUERY
 */
+
+-----------------
+-- This procedure returns list of events
+-- for a given OrgID
+GO
+CREATE PROC sp_EventsForOrg
+@OrgID INT
+AS
+BEGIN
+  SELECT EventName, EventDesc FROM Events e
+  JOIN EventOrganization eo ON e.EventID = eo.EventID
+  JOIN Organizations o ON o.OrgID = eo.OrgID
+  WHERE o.OrgID=@OrgID
+END;
+GO
+-- Test:
+-- EXEC sp_EventsForOrg 2
