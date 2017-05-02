@@ -376,21 +376,13 @@ INSERT INTO UserOrganization ( UserID, OrgID, Status) VALUES
 (4, 5, 'Active'),
 (4, 12, 'Active'),
 (4, 13, 'Active'),
-(5, 14, 'Active'),
-(5, 4, 'Active'),
-(5, 10, 'Active'),
-(5, 13, 'Active'),
-(5, 8, 'Active'),
+(5, 10, 'Admin'),
 (6, 5, 'Active'),
 (6, 2, 'Active'),
 (6, 4, 'Active'),
 (6, 13, 'Active'),
 (6, 8, 'Active'),
-(7, 4, 'Active'),
-(7, 7, 'Active'),
-(7, 9, 'Active'),
-(7, 13, 'Active'),
-(7, 15, 'Active'),
+(7, 13, 'Admin'),
 (8, 1, 'Active'),
 (8, 4, 'Active'),
 (8, 8, 'Active'),
@@ -604,22 +596,21 @@ INSERT INTO CategoryOrganization (CategoryID , OrgID) VALUES
 
 SET IDENTITY_INSERT Documents ON;
 INSERT INTO Documents (DocID, DocName, DocDesc, DocLink) VALUES
-(1,  'Action for America_Doc',                       'Document for Action for America', ''),
-(2,  'Active Minds at Arizona State University_Doc', 'Document for Active Minds at Arizona State University', ''),
-(3,  'Adworks_Doc',                                  'Document for Adworks', ''),
-(4,  'Aerospace Innovation Club_Doc',                'Document for Aerospace Innovation Club', ''),
-(5,  'Alpha Chi Omega Sorority_Doc',                 'Document for Alpha Chi Omega Sorority', ''),
-(6,  'Barrett Leadership and Service Team_Doc',      'Document for Barrett Leadership and Service Team', ''),
-(7,  'Bhakti Yoga Club_Doc',                         'Document for Bhakti Yoga Club', ''),
-(8,  'bioSyntagma_Doc',                              'Document for bioSyntagma', ''),
-(9,  'Global Business Association_Doc',              'Document for Global Business Association', ''),
-(10, 'JOYS_Doc',                                     'Document for JOYS', ''),
-(11, 'Alpha Chi Omega Sorority_Doc',                 'Document for Alpha Chi Omega Sorority', ''),
-(12, 'ASU Club Golf Team_Doc',                       'Document for ASU Club Golf Team', ''),
-(13, 'Bakers at ASU_Doc',                            'Document for Bakers at ASU', ''),
-(14, 'Sustaninable Engergy Solutions_Doc',           'Document for Sustaninable Engergy Solutions', ''),
-(15, 'TECH Devils_Doc',                              'Document for TECH Devils', '');
-
+(1,  'Action for America_Doc',                       'Document for Action for America', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/01.png'),
+(2,  'Active Minds at Arizona State University_Doc', 'Document for Active Minds at Arizona State University', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/02.png'),
+(3,  'Adworks_Doc',                                  'Document for Adworks', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/03.png'),
+(4,  'Aerospace Innovation Club_Doc',                'Document for Aerospace Innovation Club', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/04.PNG'),
+(5,  'Alpha Chi Omega Sorority_Doc',                 'Document for Alpha Chi Omega Sorority', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/05.PNG'),
+(6,  'Barrett Leadership and Service Team_Doc',      'Document for Barrett Leadership and Service Team', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/06.png'),
+(7,  'Bhakti Yoga Club_Doc',                         'Document for Bhakti Yoga Club', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/07.PNG'),
+(8,  'bioSyntagma_Doc',                              'Document for bioSyntagma', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/08.png'),
+(9,  'Global Business Association_Doc',              'Document for Global Business Association', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/09.png'),
+(10, 'JOYS_Doc',                                     'Document for JOYS', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/10.png'),
+(11, 'Alpha Chi Omega Sorority_Doc',                 'Document for Alpha Chi Omega Sorority', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/11.PNG'),
+(12, 'ASU Club Golf Team_Doc',                       'Document for ASU Club Golf Team', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/12.png'),
+(13, 'Bakers at ASU_Doc',                            'Document for Bakers at ASU', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/13.png'),
+(14, 'Sustaninable Engergy Solutions_Doc',           'Document for Sustaninable Engergy Solutions', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/14.png'),
+(15, 'TECH Devils_Doc',                              'Document for TECH Devils', 'https://s3-us-west-2.amazonaws.com/ift530projectbucket/Documents/15.png');
 SET IDENTITY_INSERT Documents OFF;
 
 
@@ -837,3 +828,61 @@ END;
 GO
 -- Test:
 -- EXEC sp_EventsForOrg 2
+
+--------------------
+-- This procedure implements the Organization Search function
+-- for users
+GO
+CREATE PROC sp_SearchOrgs (@SearchTerm NVARCHAR(max) = '')
+AS
+  DECLARE @cmd NVARCHAR(max);
+  SET @cmd = N'SELECT OrgID, Name, Email, WebLink FROM Organizations WHERE Name LIKE ''' + @SearchTerm + '%''' + ' OR EMAIL LIKE ''' + @SearchTerm + '%''';
+  EXEC sp_executesql @cmd
+GO
+
+-- Test:
+-- EXEC sp_SearchOrgs 'golf'
+---------------------
+
+CREATE PROC sp_UserListForOrgAdmin
+@UserID INT
+AS
+BEGIN
+  SELECT Name, Email, WebLink
+  FROM Organizations WHERE OrgID IN
+  (SELECT OrgID
+   FROM UserOrganization WHERE UserID = @UserID)
+END;
+
+--------------------
+-- This procedure sends the list of Users
+-- of an OrgAdmin's organization
+GO
+CREATE PROC sp_UserListForOrgAdmin
+@UserID INT
+AS
+BEGIN
+  SELECT FName, LName, ASUID FROM Users
+  WHERE UserID IN
+  (SELECT UserID FROM UserOrganization uo
+   WHERE OrgID = (SELECT OrgID FROM UserOrganization WHERE UserID = @UserID)
+   AND uo.Status <> 'Admin')
+END;
+
+-- Test:
+-- EXEC sp_UserListForOrgAdmin 7
+
+-------------------------------------
+-- This procedure sends the Organization Name
+-- of an OrgAdmin, for the OrgAdmin
+GO
+CREATE PROC sp_OrgNameForOrgAdmin
+@UserID INT
+AS
+BEGIN
+  SELECT Name FROM Organizations
+  WHERE OrgID = (SELECT OrgID FROM UserOrganization WHERE UserID = @UserID)
+END;
+
+-- Test:
+-- EXEC sp_OrgNameForOrgAdmin 5
