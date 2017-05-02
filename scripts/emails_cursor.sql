@@ -1,6 +1,6 @@
--- Emails Cursor
+-- Emails/Notifications Cursor
 -- Description: Given a particular organization, this cursor 
---              sends an email to all the users one-by-one
+--              sends an email/notification to all the users one-by-one
 --              about the latest event in the organization.
 
 DECLARE @OrgID INT,
