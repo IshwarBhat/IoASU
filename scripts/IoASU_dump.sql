@@ -669,8 +669,9 @@ GO
 -------------------------------------------------
 -- Create Stored Procedures:
 -- Stored Procedure:
--- Return list of Organizations (Name, Email, Weblink) given a UserID
+-- Return list of Organizations, their Categories and campus Name
 
+EXEC sp_OrganizationCategoryCampus
 GO
 create proc sp_OrganizationCategoryCampus
 as
