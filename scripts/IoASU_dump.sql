@@ -694,43 +694,6 @@ GO
 -- Stored Procedure:
 -- Return list of Organizations, their Categories and campus Name
 
-EXEC sp_OrganizationCategoryCampus
-GO
-create proc sp_OrganizationCategoryCampus
-as
-begin
-with OrganizationCampusCTE
-as
-(
-select Organizations.OrgID,CampusID,Name from
-Organizations inner join CampusOrganization
-on Organizations.OrgID=CampusOrganization.OrgID
-),
-CampusOrganizationCTE 
-as
-(
-select OrganizationCampusCTE.OrgID,OrganizationCampusCTE.Name,CampusName from
-Campuses inner join OrganizationCampusCTE
-on Campuses.CampusID=OrganizationCampusCTE.CampusID
-),
-OrganizationCategoryCTE
-as
-(
-select CategoryID,Name,CampusName from
-CampusOrganizationCTE inner join CategoryOrganization
-on CampusOrganizationCTE.OrgID=CategoryOrganization.OrgID
-),
-CategoryOrganizationCTE 
-as
-(
-select Name as 'OrganizationName',CategoryName,CampusName from
-Categories inner join OrganizationCategoryCTE
-on Categories.CategoryID=OrganizationCategoryCTE.CategoryID
-)
-select * from CategoryOrganizationCTE
-end;
-GO
-
 CREATE PROC sp_OrgListForUser
 @UserID INT
 AS
@@ -742,11 +705,11 @@ BEGIN
 END;
 
 -- Test:
--- EXEC sp_OrgListForUser 1
+-- EXEC sp_OrgListForUser 5
 
 -- Stored Procedure:
 -- Return stuff for User's My Profile Page
-SELECT * FROM UserPhones
+
 GO
 CREATE PROC sp_MyProfileForUser
 @UserID INT
@@ -842,17 +805,6 @@ GO
 
 -- Test:
 -- EXEC sp_SearchOrgs 'golf'
----------------------
-
-CREATE PROC sp_UserListForOrgAdmin
-@UserID INT
-AS
-BEGIN
-  SELECT Name, Email, WebLink
-  FROM Organizations WHERE OrgID IN
-  (SELECT OrgID
-   FROM UserOrganization WHERE UserID = @UserID)
-END;
 
 --------------------
 -- This procedure sends the list of Users
