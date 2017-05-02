@@ -155,7 +155,9 @@ SET IDENTITY_INSERT Campuses OFF;
 
 
 SET IDENTITY_INSERT Organizations ON;
-
+Update Organizations
+Set WeeklyMeetTime= getdate();
+Select * from Organizations
 INSERT INTO Organizations (OrgID, Name, Email, Phone, MeetingVenue, WeeklyMeetDay, WeeklyMeetTime, WebLink, DateOfCreation) VALUES
 (1, 'Action for America', 'aofa@asu.edu', '4806567865', 'COWDN', 'Monday', '17:00', 'aofa.org', '2012-04-01'),
 (2, 'Active Minds at Arizona State University', 'aminds@asu.edu', '4805782052', 'Art', 'Friday', '16:00', 'aminds.com', '2013-05-23'),
