@@ -799,12 +799,12 @@ GO
 CREATE PROC sp_SearchOrgs (@SearchTerm NVARCHAR(max) = '')
 AS
   DECLARE @cmd NVARCHAR(max);
-  SET @cmd = N'SELECT OrgID, Name, Email, WebLink FROM Organizations WHERE Name LIKE ''' + @SearchTerm + '%''' + ' OR EMAIL LIKE ''' + @SearchTerm + '%''';
+  SET @cmd = N'SELECT OrgID, Name, Email, WebLink FROM Organizations WHERE Name LIKE ''%' + @SearchTerm + '%''' + ' OR EMAIL LIKE ''%' + @SearchTerm + '%''';
   EXEC sp_executesql @cmd
 GO
 
 -- Test:
--- EXEC sp_SearchOrgs 'golf'
+-- EXEC sp_SearchOrgs 'sor'
 
 --------------------
 -- This procedure sends the list of Users
